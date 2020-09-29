@@ -4,7 +4,6 @@
   "description": "Fullstack Messaging Application",
   "main": "index.js",
   "scripts": {
-    "client-install": "cd client && npm install",
     "client": "npm start --prefix src/client",
     "server": "nodemon --exec babel-node src/server/server.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
