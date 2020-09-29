@@ -1,0 +1,33 @@
+{
+  "name": "herolo-home-assignment",
+  "version": "1.0.0",
+  "description": "Fullstack Messaging Application",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "client": "npm start --prefix src/client",
+    "server": "nodemon --exec babel-node src/server/server.js",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arielfenster/Ariel-Fenster-29-09-2020.git"
+  },
+  "author": "Ariel Fenster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arielfenster/Ariel-Fenster-29-09-2020/issues"
+  },
+  "homepage": "https://github.com/arielfenster/Ariel-Fenster-29-09-2020#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
