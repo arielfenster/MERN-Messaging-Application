@@ -20,7 +20,7 @@ router.get('/:userId', async (req, res) => {
 // Create a message
 router.post('/:userId', async (req, res) => {
   const { sender, receiver, subject, message } = req.body;
-
+  
   const newMessage = new Message({
     sender,
     receiver,
@@ -30,8 +30,7 @@ router.post('/:userId', async (req, res) => {
 
   try {
     const response = await newMessage.save();
-    console.log(response);
-    res.status(200).send('Created the message');
+    res.status(200).send(response);
   } catch (err) {
     console.log(err);
     res.status(500).send('Failed to create the message');
@@ -40,11 +39,10 @@ router.post('/:userId', async (req, res) => {
 
 // Delete a message
 router.delete('/:messageId', async (req, res) => {
-  const { messageId } = req.body;
+  const { messageId } = req.params;
 
   try {
     const response = await Message.deleteOne({ _id: messageId });
-    console.log(response);
     res.status(200).send('Deleted');
   } catch (err) {
     console.log('Error deleting the message: ', err);

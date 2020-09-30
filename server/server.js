@@ -16,13 +16,15 @@ mongoose.connect(
   }
 )
 
+// Setup
 const app = express();
 app.use(cors());
-
-const PORT = 5000;
+app.use(express.json());
 
 // Configure routes
 app.use('/messages', routers.messagesRouter);
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
