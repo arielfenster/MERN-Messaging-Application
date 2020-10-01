@@ -8,9 +8,24 @@ router.get('/:userId', async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const items = await Message.find({ sender: userId });
-    console.log(items);
-    res.send(items);
+    const userMessages = await Message.find({
+      $or: [
+        {
+          sender: userId
+        },
+        {
+          receiver: userId
+        }
+      ]
+    });
+    const messagesSent = userMessages.filter(msg => msg.sender === userId);
+    const messagesReceived = userMessages.filter(msg => msg.receiver === userId);
+
+    res.status(200).json({
+      "sent": messagesSent,
+      "recieved": messagesReceived
+    });
+    
   } catch (err) {
     console.log("Error fetching the user's messages");
     res.send(null);
@@ -18,7 +33,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 // Create a message
-router.post('/:userId', async (req, res) => {
+router.post('/', async (req, res) => {
   const { sender, receiver, subject, message } = req.body;
   
   const newMessage = new Message({
