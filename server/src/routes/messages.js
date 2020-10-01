@@ -3,6 +3,17 @@ import Message from '../models/Message';
 
 const router = express.Router();
 
+// Get all messages
+router.get('/', async (req, res) => {
+  try {
+    const messages = await Message.find({});
+    res.status(200).send(messages);
+  } catch (err) {
+    console.error("Couldn't get all the messages: ", err);
+    res.status(500).send('Failed to ');
+  }
+});
+
 // Get all messages of user id
 router.get('/:userId', async (req, res) => {
   const { userId } = req.params;
@@ -21,9 +32,9 @@ router.get('/:userId', async (req, res) => {
     const messagesSent = userMessages.filter(msg => msg.sender === userId);
     const messagesReceived = userMessages.filter(msg => msg.receiver === userId);
 
-    res.status(200).json({
+    res.status(200).send({
       "sent": messagesSent,
-      "recieved": messagesReceived
+      "received": messagesReceived
     });
     
   } catch (err) {

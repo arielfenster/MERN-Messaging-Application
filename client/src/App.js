@@ -1,10 +1,13 @@
 import React from 'react';
-import MessageForm from './pages/ComposeMessage';
-import Control from './pages/ManageMessages/Control';
+import ComposeMessage from './pages/ComposeMessage/components';
+import Control from './pages/ManageMessages/components/display/Control';
 
 function App() {
   return (
-    <MessageForm />
+    <div>
+      {/* <ComposeMessage /> */}
+      <Control />
+    </div>
   );
 }
 
