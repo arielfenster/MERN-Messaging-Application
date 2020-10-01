@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client": "npm start --prefix client",
-    "server": "nodemon --exec babel-node src/server/server.js",
+    "server": "nodemon --exec babel-node server/server.js",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -27,6 +27,9 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.7"
   }
 }
