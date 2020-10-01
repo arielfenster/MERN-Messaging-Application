@@ -1,13 +1,10 @@
 import React from 'react';
-import './App.css';
+import MessageForm from './pages/ComposeMessage/MessageForm';
+import Control from './pages/ManageMessages/Control';
 
 function App() {
   return (
-    <div className="App">
-      <h1>
-        test
-      </h1>
-    </div>
+    <MessageForm />
   );
 }
 
