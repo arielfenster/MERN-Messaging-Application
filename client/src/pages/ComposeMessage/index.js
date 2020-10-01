@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { Form, Input, Button } from 'antd';
-// import 'antd/dist/antd.compact.css';
+import 'antd/dist/antd.compact.css';
 
 const MessageForm = () => {
-  // const [values, setValues] = useState({ });
+  const [displayMessage, setDisplayMessage] = useState('');
+  const [formRef] = Form.useForm();
 
-  const onFinish = (values) => {
-    console.log('Finished: ', values);
+  const onFinish = async (values) => {
+    try {
+      await axios.post('http://localhost:5000/messages', { ...values });
+      setDisplayMessage('Message sent successfully');
+      formRef.resetFields();
+    } catch (err) {
+      setDisplayMessage('Error sending the message');
+      console.log('Error sending the message to the backend: ', err);
+    }
   }
 
   const onFinishFailed = (err) => {
@@ -17,6 +26,8 @@ const MessageForm = () => {
     <Form
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      form={formRef}
+      validateTrigger="onBlur"
     >
       <Form.Item
         label='Sender id'
@@ -24,7 +35,8 @@ const MessageForm = () => {
         rules={[
           {
             required: true,
-            message: 'Must enter sender id!'
+            whitespace: true,
+            message: 'Must enter sender id'
           }
         ]}
       >
@@ -37,7 +49,8 @@ const MessageForm = () => {
         rules={[
           {
             required: true,
-            message: 'Must enter receiver id!'
+            whitespace: true,
+            message: 'Must enter receiver id'
           }
         ]}
       >
@@ -50,8 +63,9 @@ const MessageForm = () => {
         rules={[
           {
             required: true,
-            min: 3,
-            message: 'Subject must be at least 3 characters long!'
+            whitespace: true,
+            min: 1,
+            message: 'Cannot send an empty subject'
           }
         ]}
       >
@@ -72,12 +86,13 @@ const MessageForm = () => {
         <Input.TextArea />
       </Form.Item>
 
-      
       <Form.Item>
         <Button type='primary' htmlType='submit'>
-          Submit
+          Send
         </Button>
       </Form.Item>
+
+      <p> {displayMessage} </p>
     </Form>
   );  
 }
