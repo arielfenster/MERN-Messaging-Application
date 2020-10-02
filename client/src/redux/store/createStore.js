@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-// import thunk from 'redux-thunk';
-// import middlewares from '../middleware';
 import rootReducer from '../reducer';
 import rootSaga from '../saga';
 
 const createStore = (initialState = {}) => {
   
-  // Connect the sagas logic to the store
+  // Create a sagas middleware that will connect the sagas logic to the store
   const sagasMiddleware = createSagaMiddleware({ });
 
   const middleware = [sagasMiddleware];

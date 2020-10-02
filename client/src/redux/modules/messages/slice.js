@@ -14,15 +14,29 @@ const slice = createSlice({
       state.list.push(action.payload);
       return state;
     },
+
     getUserMessagesSubmitted: (state) => state,
     getUserMessagesSuccess: (state, action) => {
       state.list = action.payload;
       return state;
     },
+
+    getAllMessagesSubmitted: (state) => state,
+    getAllMessagesSuccess: (state, action) => {
+      state.list = action.payload;
+      return state;
+    },
+    
     deleteMessageSubmitted: (state) => state,
     deleteMessageSuccess: (state, action) => {
-      const { messageId } = action.payload;
-      state.list = state.list.filter(msg => msg._id !== messageId);
+      const messageId = action.payload;
+      
+      // Once the user has typed a user id, the messages list becomes an object of arrays, so filter both arrays
+      const messages = {
+        sent: state.list.sent.filter(msg => msg._id !== messageId),
+        received: state.list.received.filter(msg => msg._id !== messageId)
+      };
+      state.list = messages;
       return state;
     },
   },

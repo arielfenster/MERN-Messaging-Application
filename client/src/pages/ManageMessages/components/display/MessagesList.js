@@ -1,15 +1,13 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import MessageItem from '../message/MessageItem';
+
 const { TabPane } = Tabs;
 
 const MessagesList = ({ messages }) => {
   return (
     <Tabs>
-      <TabPane
-        key='sent'
-        tab='Sent'
-      >
+      <TabPane key='sent' tab='Sent'>
         {
           messages.sent && messages.sent.map(msg => (
             <MessageItem
@@ -21,10 +19,7 @@ const MessagesList = ({ messages }) => {
         }
       </TabPane>
 
-      <TabPane
-        key='received'
-        tab='Received'
-      >
+      <TabPane key='received' tab='Received'>
         {
           messages.received && messages.received.map(msg => (
             <MessageItem

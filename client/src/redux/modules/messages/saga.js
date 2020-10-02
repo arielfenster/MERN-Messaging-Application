@@ -7,7 +7,12 @@ import { actions as messagesActions } from './slice';
 
 
 function* getAllMessages() {
-
+  try {
+    const response = yield call(apiActions.getAllMessages);
+    yield put(messagesActions.getAllMessagesSuccess(response.data));
+  } catch (error) {
+    
+  }
 }
 
 function* getUserMessages(action) {
@@ -27,7 +32,7 @@ function* addMessage(action) {
   try {
     const response = yield call(apiActions.addMessage, values);
     console.log('The response data is: ', response.data);
-    yield put(messagesActions.addMessage(response.data));
+    yield put(messagesActions.addMessageSuccess(response.data));
   } catch (error) {
     
   }
@@ -47,7 +52,7 @@ function* deleteMessage(action) {
 
 export default function* watchMessagesActions() {
   yield all([
-    // takeLatest(messagesActions.getAllMessages, getAllMessages),
+    takeLatest(messagesActions.getAllMessagesSubmitted, getAllMessages),
     takeEvery(messagesActions.getUserMessagesSubmitted, getUserMessages),
     takeLatest(messagesActions.addMessageSubmitted, addMessage),
     takeLatest(messagesActions.deleteMessageSubmitted, deleteMessage),

@@ -6,7 +6,12 @@ const axiosInstance = axios.create({
 });
 
 const getAllMessages = async () => {
-
+  try {
+    return await axiosInstance.get('/');
+  } catch (error) {
+    console.log(`Error fetching all the messages: `, error);
+    return null;
+  }
 }
 
 const getUserMessages = async (userId) => {
