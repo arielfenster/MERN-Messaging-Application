@@ -20,6 +20,7 @@ const MessageItem = ({ message, type }) => {
           :
           <MessageDetail label='From' value={message.sender} />
       }
+      <MessageDetail label='At' value={message.date} />
       <MessageDetail label='Message' value={message.message} />
     </Card>
   );

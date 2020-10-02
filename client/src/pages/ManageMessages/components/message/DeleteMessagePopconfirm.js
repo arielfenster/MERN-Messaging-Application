@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, Popconfirm, message as SystemMessage } from 'antd';
-import { MessagesModuleContext } from '../display/Control';
+import { MessagesModuleContext } from '../display/Dashboard';
 
 const DeleteMessagePopconfirm = ({ messageId }) => {
 
