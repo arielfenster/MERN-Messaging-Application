@@ -1,5 +1,5 @@
 import saga from './saga';
-import reducer, { actions, selectors } from './slice';
+import { reducer, actions, selectors } from './slice';
 
 export default {
   reducer,
