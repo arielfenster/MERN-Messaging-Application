@@ -9,17 +9,21 @@ export const MessagesModuleContext = createContext();
 
 const Control = (props) => {
   const [userIdQuery, setUserIdQuery] = useState('');
-
+  const {
+    messages,
+    getUserMessagesSubmitted,
+    deleteMessageSubmitted } = props;
+    
   /**
    * Everytime the user types a user id, fire a GET request to the backend
    * to fetch all the messages relevant to that user id
    */
   useEffect(() => {
-    props.getUserMessagesSubmitted(userIdQuery);
+    getUserMessagesSubmitted(userIdQuery);
   }, [userIdQuery]);
 
   const contextValue = {
-    onConfirmAction: (messageId) => {props.deleteMessageSubmitted(messageId)},
+    onConfirmAction: (messageId) => {deleteMessageSubmitted(messageId)},
   };
 
   return (
@@ -27,7 +31,7 @@ const Control = (props) => {
       <SearchBar onChange={(queryId) => setUserIdQuery(queryId)}/>
 
       <MessagesModuleContext.Provider value={contextValue}>
-        <MessagesList messages={props.messages} />
+        <MessagesList messages={messages} />
       </MessagesModuleContext.Provider>
     </div>
   );
