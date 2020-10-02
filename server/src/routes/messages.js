@@ -29,8 +29,11 @@ router.get('/:userId', async (req, res) => {
         }
       ]
     });
-    const messagesSent = userMessages.filter(msg => msg.sender === userId);
-    const messagesReceived = userMessages.filter(msg => msg.receiver === userId);
+    const messagesSent = [];
+    const messagesReceived = [];
+    userMessages.forEach(msg => {
+      msg.sender === userId ? messagesSent.push(msg) : messagesReceived.push(msg);
+    });
 
     res.status(200).send({
       "sent": messagesSent,
@@ -68,7 +71,7 @@ router.delete('/:messageId', async (req, res) => {
   const { messageId } = req.params;
 
   try {
-    const response = await Message.deleteOne({ _id: messageId });
+    await Message.deleteOne({ _id: messageId });
     res.status(200).send('Deleted');
   } catch (err) {
     console.log('Error deleting the message: ', err);

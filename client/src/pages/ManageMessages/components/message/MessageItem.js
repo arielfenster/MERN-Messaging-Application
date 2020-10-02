@@ -10,19 +10,18 @@ const MessageDetail = ({ label, value }) => (
 
 const MessageItem = ({ message, type }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <Card>
-        {
-          type === 'sent' ? 
-            <MessageDetail label='To' value={message.receiver} />
-            :
-            <MessageDetail label='From' value={message.sender} />
-        }
-        <MessageDetail label='Title' value={message.subject} />     
-        <MessageDetail label='Message' value={message.message} />
-      </Card>
-      <DeleteMessagePopconfirm messageId={message._id} />
-    </div>
+    <Card
+      title={`Title: ${message.subject}`}
+      extra={<DeleteMessagePopconfirm messageId={message._id} />}
+    >
+      {
+        type === 'sent' ? 
+          <MessageDetail label='To' value={message.receiver} />
+          :
+          <MessageDetail label='From' value={message.sender} />
+      }
+      <MessageDetail label='Message' value={message.message} />
+    </Card>
   );
 }
 
