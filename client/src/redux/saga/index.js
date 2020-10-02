@@ -5,6 +5,5 @@ import messagesModule from '../modules/messages';
 export default function* rootSaga() {
   yield all([
     fork(messagesModule.saga),
-    
   ]);
 };

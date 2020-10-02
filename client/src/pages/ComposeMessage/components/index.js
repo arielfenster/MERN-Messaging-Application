@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import 'antd/dist/antd.compact.css';
+import messagesModule from '../../../redux/modules/messages';
 
-const MessageForm = () => {
+
+const MessageForm = (props) => {
   const [displayMessage, setDisplayMessage] = useState('');
   const [formRef] = Form.useForm();
 
   const onFinish = async (values) => {
     try {
-      await axios.post('http://localhost:5000/messages', { ...values });
+      props.addMessageSubmitted(values);
       setDisplayMessage('Message sent successfully');
       formRef.resetFields();
     } catch (err) {
+      console.log("err: ", err);
       setDisplayMessage('Error sending the message');
-      console.log('Error sending the message to the backend: ', err);
     }
   }
 
@@ -97,4 +99,12 @@ const MessageForm = () => {
   );  
 }
 
-export default MessageForm;
+const mapStateToProps = (state) => ({
+  messages: messagesModule.selectors.getMessages(state),
+});
+
+const mapDispatchToProps = {
+  ...messagesModule.actions
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);

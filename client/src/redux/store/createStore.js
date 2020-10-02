@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+// import thunk from 'redux-thunk';
+// import middlewares from '../middleware';
 import rootReducer from '../reducer';
 import rootSaga from '../saga';
 

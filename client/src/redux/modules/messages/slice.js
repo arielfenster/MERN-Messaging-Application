@@ -1,6 +1,5 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-// import { createSlice } from '@reduxjs/toolkit';
-// import { createSelector } from 'reselect'
+
 const initialState = {
   list: []
 };
@@ -10,13 +9,20 @@ const slice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addMessage: (state, action) => {
-      state.messages.list.push(action.payload);
+    addMessageSubmitted: (state) => state,
+    addMessageSuccess: (state, action) => {
+      state.list.push(action.payload);
       return state;
     },
-    deleteMessage: (state, action) => {
+    getUserMessagesSubmitted: (state) => state,
+    getUserMessagesSuccess: (state, action) => {
+      state.list = action.payload;
+      return state;
+    },
+    deleteMessageSubmitted: (state) => state,
+    deleteMessageSuccess: (state, action) => {
       const { messageId } = action.payload;
-      state.messages = state.messages.list.filter(msg => msg._id !== messageId);
+      state.list = state.list.filter(msg => msg._id !== messageId);
       return state;
     },
   },
@@ -29,13 +35,16 @@ export const actions = {
 }
 
 // Export the slice reducer
-export const { reducer } = slice;
+export const reducer = slice.reducer;
 
-// Create a messages slice (list) selector and export it
-const getMessagesSlice = (state) => state.messages || initialState;
+// Create a messages list selector and export it
 
+/**
+ * 1st param - messages slice selector function
+ * 2nd param - result function that uses the output of the first function
+ */
 const getMessages = createSelector(
-  getMessagesSlice,
+  (state) => state.messages || initialState,
   (messages) => messages.list
 );
 
