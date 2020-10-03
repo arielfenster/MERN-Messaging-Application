@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-// Backend requests setup
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/messages',
-});
-
 // Helper function
 const createErrorWithStatus = (error) => {
   const { response } = error;
@@ -18,7 +13,7 @@ const createErrorWithStatus = (error) => {
 
 const getAllMessages = async () => {
   try {
-    return await axiosInstance.get('/');
+    return await axios.get('/messages/');
   } catch (error) {
     throw createErrorWithStatus(error);
   }
@@ -26,7 +21,7 @@ const getAllMessages = async () => {
 
 const getUserMessages = async (userId) => {
   try {
-    return await axiosInstance.get(`/${userId}`);
+    return await axios.get(`/messages/${userId}`);
   } catch (error) {
     throw createErrorWithStatus(error);
   }
@@ -34,7 +29,7 @@ const getUserMessages = async (userId) => {
 
 const addMessage = async (values) => {
   try {
-    return await axiosInstance.post('/', { ...values });
+    return await axios.post('/messages/', { ...values });
   } catch (error) {
     throw createErrorWithStatus(error); 
   }
@@ -43,7 +38,7 @@ const addMessage = async (values) => {
 
 const deleteMessage = async (messageId) => {
   try {
-    await axiosInstance.delete(`/${messageId}`);
+    await axios.delete(`/messages/${messageId}`);
   } catch (error) {
     throw createErrorWithStatus(error);
   }

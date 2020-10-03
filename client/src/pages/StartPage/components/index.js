@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const Div = styled.div`
   height: 100vh;
   width: 100vw;
-  border: 5px solid black;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
