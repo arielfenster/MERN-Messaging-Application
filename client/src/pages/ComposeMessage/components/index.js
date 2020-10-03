@@ -1,35 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import 'antd/dist/antd.compact.css';
 import messagesModule from '../../../redux/modules/messages';
-
+import errorsModule from '../../../redux/modules/errors';
 
 const MessageForm = (props) => {
   const [displayMessage, setDisplayMessage] = useState('');
   const [formRef] = Form.useForm();
 
-  const onFinish = async (values) => {
-    try {
-      props.addMessageSubmitted(values);
-      setDisplayMessage('Message sent successfully');
-      formRef.resetFields();
-    } catch (error) {
-      // console.log("err: ", err);
-      setDisplayMessage(`Error sending the message (${error.message})`);
-    }
+  const { addMessageSubmitted, messages, error } = props;
+
+  const onFinish = (values) => {
+    setDisplayMessage('Trying to send the message...');
+    addMessageSubmitted(values);
   }
 
-  const onFinishFailed = (err) => {
-    console.log('Error: ', err);
-  }
+  // Create an effect for when a request is completed or failed due to an error
+  useEffect(() => {
+    if (error.message) {
+      setDisplayMessage(`Error sending the message (${error.message})`);
+    } else {
+      setDisplayMessage('Message sent successfully');
+    }
+  }, [error.message, messages.length]);
+
+  // Clear the display message for when the component is mounted
+  useEffect(() => setDisplayMessage(''), []);
 
   return (
     <div>
       <Form
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         form={formRef}
         validateTrigger="onBlur"
       >
@@ -107,7 +110,8 @@ const MessageForm = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  messages: messagesModule.selectors.getMessages(state),
+  [messagesModule.SLICE_KEY]: messagesModule.selectors.getMessages(state),
+  [errorsModule.SLICE_KEY]: errorsModule.selectors.getErrors(state),
 });
 
 const mapDispatchToProps = {

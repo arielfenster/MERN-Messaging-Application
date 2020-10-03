@@ -1,35 +1,35 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
+export const SLICE_KEY = 'messages';
+
 const initialState = {
   list: []
 };
 
 // Create a slice that encapsulates the action creator and reducer
 const slice = createSlice({
-  name: 'messages',
+  name: SLICE_KEY,
   initialState,
   reducers: {
     addMessageSubmitted: (state) => state,
     addMessageSuccess: (state, action) => {
-      if (action.payload) {
+      if (Array.isArray(state.list)) {
         state.list.push(action.payload);
+      } else {
+        state.list = [action.payload];
       }
       return state;
     },
 
     getUserMessagesSubmitted: (state) => state,
     getUserMessagesSuccess: (state, action) => {
-      if (action.payload) {
-        state.list = action.payload;
-      }
+      state.list = action.payload;
       return state;
     },
 
     getAllMessagesSubmitted: (state) => state,
     getAllMessagesSuccess: (state, action) => {
-      if (action.payload) {
-        state.list = action.payload;
-      }
+      state.list = action.payload;
       return state;
     },
     
@@ -64,7 +64,7 @@ export const reducer = slice.reducer;
  * 2nd param - result function that uses the output of the first function
  */
 const getMessages = createSelector(
-  (state) => state.messages || initialState,
+  (state) => state[SLICE_KEY] || initialState,
   (messages) => messages.list
 );
 

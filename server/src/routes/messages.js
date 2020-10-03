@@ -90,7 +90,7 @@ router.delete('/:messageId', async (req, res) => {
   const { messageId } = req.params;
   
   try {
-    const response = await Message.deleteOne({ _id: 123456 });
+    const response = await Message.deleteOne({ _id: messageId });
     
     // Check for errors
     if (!response || response.deletedCount == 0) {

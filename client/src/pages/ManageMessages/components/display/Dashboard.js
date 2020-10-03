@@ -44,7 +44,7 @@ const Dashboard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  messages: messagesModule.selectors.getMessages(state),
+  [messagesModule.SLICE_KEY]: messagesModule.selectors.getMessages(state),
 });
 
 const mapDispatchToProps = {

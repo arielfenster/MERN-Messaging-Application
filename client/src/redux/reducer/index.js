@@ -4,7 +4,7 @@ import errorsModule from '../modules/errors';
 
 const rootReducer = combineReducers({
   messages: messagesModule.reducer,
-  errors: errorsModule.reducer,
+  error: errorsModule.reducer,
 });
 
 export default rootReducer;
