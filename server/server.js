@@ -27,7 +27,7 @@ app.use('/messages', routers.messagesRouter);
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   const staticPath = path.normalize(path.join(__dirname, '../client/build'));
-  app.use(express.static(staticPath));
+  app.use(express.static('client/build'));
 
   // Load the static 
   app.get('*', (req, res) => {
