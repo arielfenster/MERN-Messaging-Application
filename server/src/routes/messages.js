@@ -5,78 +5,65 @@ const router = express.Router();
 
 // Get all messages
 router.get('/', async (req, res) => {
-  try {
-    const messages = await Message.find({});
-    res.status(200).send(messages);
-  } catch (err) {
-    console.error("Couldn't get all the messages: ", err);
-    res.status(500).send('Failed to ');
-  }
+  const messages = await Message.find({});
+  res.status(200).send(messages);  
 });
 
 // Get all messages of user id
 router.get('/:userId', async (req, res) => {
   const { userId } = req.params;
 
-  try {
-    const userMessages = await Message.find({
-      $or: [
-        {
-          sender: userId
-        },
-        {
-          receiver: userId
-        }
-      ]
-    });
-    const messagesSent = [];
-    const messagesReceived = [];
-    userMessages.forEach(msg => {
-      msg.sender === userId ? messagesSent.push(msg) : messagesReceived.push(msg);
-    });
+  const userMessages = await Message.find({
+    $or: [
+      {
+        sender: userId
+      },
+      {
+        receiver: userId
+      }
+    ]
+  });
 
-    res.status(200).send({
-      "sent": messagesSent,
-      "received": messagesReceived
-    });
-    
-  } catch (err) {
-    console.log("Error fetching the user's messages");
-    res.send(null);
+  // If there are no messages then send an empty list
+  if (userMessages.length == 0) {
+    return res.status(200).send([]);
   }
+
+  const messagesSent = [];
+  const messagesReceived = [];
+  userMessages.forEach(msg => {
+    msg.sender === userId ? messagesSent.push(msg) : messagesReceived.push(msg);
+  });
+
+  const messages = {
+    sent: messagesSent,
+    received: messagesReceived
+  };
+
+  res.status(200).json(messages);
 });
 
 // Create a message
 router.post('/', async (req, res) => {
-  const { sender, receiver, subject, message } = req.body;
+  const { sender, receiver, subject, body } = req.body;
   
   const newMessage = new Message({
     sender,
     receiver,
     subject,
-    message
+    body
   });
 
-  try {
-    const response = await newMessage.save();
-    res.status(200).send(response);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Failed to create the message');
-  }
+  const response = await newMessage.save();
+  res.status(200).send(response);
 });
 
 // Delete a message
 router.delete('/:messageId', async (req, res) => {
   const { messageId } = req.params;
-
-  try {
-    await Message.deleteOne({ _id: messageId });
-    res.status(200).send('Deleted');
-  } catch (err) {
-    console.log('Error deleting the message: ', err);
-    res.status(500).send('Failed to delete');
-  }
+  
+  const response = await Message.deleteOne({ _id: messageId });
+  res.status(200).json({ success: true });
 });
 
 export default router;

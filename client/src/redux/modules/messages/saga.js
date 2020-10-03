@@ -11,7 +11,7 @@ function* getAllMessages() {
     const response = yield call(apiActions.getAllMessages);
     yield put(messagesActions.getAllMessagesSuccess(response.data));
   } catch (error) {
-    
+    yield put(errorsActions.getAllMessagesFailed(error.message));  
   }
 }
 
@@ -22,19 +22,18 @@ function* getUserMessages(action) {
     const response = yield call(apiActions.getUserMessages, userId);
     yield put(messagesActions.getUserMessagesSuccess(response.data));
   } catch (error) {
-    
+    yield put(errorsActions.getUserMessagesFailed(error.message));  
   }
 }
 
 function* addMessage(action) {
-  const values = action.payload;
+  const message = action.payload;
 
   try {
-    const response = yield call(apiActions.addMessage, values);
-    console.log('The response data is: ', response.data);
+    const response = yield call(apiActions.addMessage, message);
     yield put(messagesActions.addMessageSuccess(response.data));
   } catch (error) {
-    
+    yield put(errorsActions.addMessageFailed(error.message));  
   }
 }
 
@@ -45,7 +44,7 @@ function* deleteMessage(action) {
     yield call(apiActions.deleteMessage, messageId);
     yield put(messagesActions.deleteMessageSuccess(messageId));  
   } catch (error) {
-    
+    yield put(errorsActions.deleteMessageFailed(error.message));  
   }
 }
 

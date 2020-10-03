@@ -11,19 +11,25 @@ const slice = createSlice({
   reducers: {
     addMessageSubmitted: (state) => state,
     addMessageSuccess: (state, action) => {
-      state.list.push(action.payload);
+      if (action.payload) {
+        state.list.push(action.payload);
+      }
       return state;
     },
 
     getUserMessagesSubmitted: (state) => state,
     getUserMessagesSuccess: (state, action) => {
-      state.list = action.payload;
+      if (action.payload) {
+        state.list = action.payload;
+      }
       return state;
     },
 
     getAllMessagesSubmitted: (state) => state,
     getAllMessagesSuccess: (state, action) => {
-      state.list = action.payload;
+      if (action.payload) {
+        state.list = action.payload;
+      }
       return state;
     },
     

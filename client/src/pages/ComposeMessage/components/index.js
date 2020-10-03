@@ -15,9 +15,9 @@ const MessageForm = (props) => {
       props.addMessageSubmitted(values);
       setDisplayMessage('Message sent successfully');
       formRef.resetFields();
-    } catch (err) {
-      console.log("err: ", err);
-      setDisplayMessage('Error sending the message');
+    } catch (error) {
+      // console.log("err: ", err);
+      setDisplayMessage(`Error sending the message (${error.message})`);
     }
   }
 
@@ -77,13 +77,13 @@ const MessageForm = (props) => {
         </Form.Item>
 
         <Form.Item
-          label='Message'
-          name='message'
+          label='Body'
+          name='body'
           rules={[
             {
               required: true,
               whitespace: true,
-              message: 'Cannot send an empty message'
+              message: 'Cannot send an empty body'
             }
           ]}
         >

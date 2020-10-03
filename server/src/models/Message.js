@@ -1,15 +1,14 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const messageSchema = new mongoose.Schema({
+const messageSchema = new Schema({
   sender: String,
   receiver: String,
   subject: String,
-  message: String,
+  body: String,
   date: {
     type: Date,
     default: Date.now
   }
 });
 
-
-export default mongoose.model('Message', messageSchema);
+export default model('Message', messageSchema);
