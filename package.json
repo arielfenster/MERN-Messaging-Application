@@ -9,8 +9,8 @@
     "client": "cd client && npm start",
     "start": "node server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon --exec babel-node server/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run client-install && npm run client-build"
+    "server": "nodemon --exec babel-node server.js",
+    "heroku-postbuild": "npm run client-install && npm run client-build"
   },
   "repository": {
     "type": "git",

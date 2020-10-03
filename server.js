@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
-import routers from './src/routes';
+import routers from './server/src/routes';
 
 // Connect to DB
 const mongoURI = 'mongodb+srv://arielfenster:mnE9C4GzSLraVrXy@messaging-app.kkcbr.mongodb.net/messaging-app?retryWrites=true&w=majority';
@@ -26,13 +26,12 @@ app.use('/messages', routers.messagesRouter);
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  const staticPath = path.resolve(__dirname, '..', 'client','build');
-  app.use(express.static(staticPath));
+  app.use(express.static('client/build'));
 
   // Load the static 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(staticPath, 'index.html'));
-  });
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.resolve(staticPath, 'index.html'));
+  // });
 }
 
 const PORT = process.env.PORT || 5000;
