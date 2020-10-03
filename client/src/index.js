@@ -6,7 +6,7 @@ import StartPage from './pages/StartPage/components';
 import ComposeMessage from './pages/ComposeMessage/components';
 import Dashboard from './pages/ManageMessages/components/display/Dashboard';
 import createStore from './redux/store/createStore';
-
+import 'antd/dist/antd.min.css';
 
 // Redux store setup
 const initialState = {};
@@ -21,12 +21,8 @@ ReactDOM.render(
         </Route>
 
         <Provider store={store}>
-          <Route path='/create'>
-            <ComposeMessage />
-          </Route>
-          <Route path='/manage'>
-            <Dashboard />
-          </Route>
+          <Route path='/create' component={ComposeMessage}/>
+          <Route path='/manage' component={Dashboard}/>
         </Provider>
 
       </Switch>

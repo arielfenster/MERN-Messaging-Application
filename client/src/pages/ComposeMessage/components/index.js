@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
-import 'antd/dist/antd.compact.css';
 import messagesModule from '../../../redux/modules/messages';
 import errorsModule from '../../../redux/modules/errors';
 
