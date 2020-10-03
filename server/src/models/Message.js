@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+const mongoose = require('mongoose');
 
-const messageSchema = new Schema({
+const messageSchema = new mongoose.Schema({
   sender: String,
   receiver: String,
   subject: String,
@@ -11,4 +11,4 @@ const messageSchema = new Schema({
   }
 });
 
-export default model('Message', messageSchema);
+module.exports = mongoose.model('Message', messageSchema);

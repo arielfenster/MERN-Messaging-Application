@@ -1,5 +1,5 @@
-import express from 'express';
-import Message from '../models/Message';
+const express = require('express');
+const Message = require('../models/Message');
 
 const router = express.Router();
 
@@ -106,4 +106,4 @@ router.delete('/:messageId', async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

@@ -1,5 +1,5 @@
-import messagesRouter from './messages';
+const messagesRouter = require('./messages');
 
-export default {
+module.exports = {
   messagesRouter,
 };
