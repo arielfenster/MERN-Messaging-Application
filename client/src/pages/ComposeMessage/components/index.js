@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import messagesModule from '../../../redux/modules/messages';
 import errorsModule from '../../../redux/modules/errors';
+import { Container, Footer } from '../styles';
 
 const MessageForm = (props) => {
   const [displayMessage, setDisplayMessage] = useState('');
@@ -29,16 +30,31 @@ const MessageForm = (props) => {
   // Clear the display message for when the component is mounted
   useEffect(() => setDisplayMessage(''), []);
 
+  const layouts = {
+    labelCol: {
+      span: 3,
+      offset: '3em',
+    },
+    wrapperCol: {
+      span: 21,
+      offset: '2em',
+    }
+  };
+
   return (
-    <div>
+    <Container>
       <Form
         onFinish={onFinish}
         form={formRef}
-        validateTrigger="onBlur"
+        validateTrigger='onBlur'
+        size='large'
+        labelCol={layouts.labelCol}
+        wrapperCol={layouts.wrapperCol}
       >
         <Form.Item
           label='Sender id'
           name='sender'
+          
           rules={[
             {
               required: true,
@@ -93,19 +109,21 @@ const MessageForm = (props) => {
           <Input.TextArea />
         </Form.Item>
 
-        <Form.Item>
-          <Button type='primary' htmlType='submit'>
-            Send
-          </Button>
-        </Form.Item>
+        <Footer>          
+          <p> {`Message status: ${displayMessage}`} </p>
+          <Form.Item>
+            <Button type='primary' htmlType='submit'>
+              Send
+            </Button>
+          </Form.Item>
+        </Footer>
 
-        <p> {displayMessage} </p>
       </Form>
 
       <Link to='/'>
-        <Button type='link'> Back to start </Button>
+        <Button style={{width: '100%'}} type='link'> Back to start </Button>
       </Link>
-    </div>
+    </Container>
   );  
 }
 
