@@ -1,7 +1,7 @@
 import apiActions from '../../../api';
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { actions as messagesActions } from './slice';
-
+import { actions as errorsActions } from '../errors/slice';
 
 // @@@@@ TODO: ADD A ERRORS SLICE AND REDUCER TO HANDLE THE ERRORS RETURNED
 
@@ -11,7 +11,7 @@ function* getAllMessages() {
     const response = yield call(apiActions.getAllMessages);
     yield put(messagesActions.getAllMessagesSuccess(response.data));
   } catch (error) {
-    yield put(errorsActions.getAllMessagesFailed(error.message));  
+    yield put(errorsActions.getAllMessagesFailed(JSON.parse(error.message)));
   }
 }
 
@@ -22,7 +22,7 @@ function* getUserMessages(action) {
     const response = yield call(apiActions.getUserMessages, userId);
     yield put(messagesActions.getUserMessagesSuccess(response.data));
   } catch (error) {
-    yield put(errorsActions.getUserMessagesFailed(error.message));  
+    yield put(errorsActions.getUserMessagesFailed(JSON.parse(error.message)));
   }
 }
 
@@ -33,7 +33,7 @@ function* addMessage(action) {
     const response = yield call(apiActions.addMessage, message);
     yield put(messagesActions.addMessageSuccess(response.data));
   } catch (error) {
-    yield put(errorsActions.addMessageFailed(error.message));  
+    yield put(errorsActions.addMessageFailed(JSON.parse(error.message)));
   }
 }
 
@@ -44,7 +44,7 @@ function* deleteMessage(action) {
     yield call(apiActions.deleteMessage, messageId);
     yield put(messagesActions.deleteMessageSuccess(messageId));  
   } catch (error) {
-    yield put(errorsActions.deleteMessageFailed(error.message));  
+    yield put(errorsActions.deleteMessageFailed(JSON.parse(error.message)));
   }
 }
 

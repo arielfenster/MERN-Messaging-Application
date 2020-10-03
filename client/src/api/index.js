@@ -6,44 +6,56 @@ const axiosInstance = axios.create({
 });
 
 const getAllMessages = async () => {
-  // try {
+  try {
     return await axiosInstance.get('/');
-  // } catch (error) {
-  //   return JSON.stringify({
-  //     error: error.message
-  //   });
-  // }
+  } catch (error) {
+    const { response } = error;
+
+    throw new Error(JSON.stringify({
+      error: response.data.error,
+      status: response.status,
+    }));
+  }
 }
 
 const getUserMessages = async (userId) => {
-  // try {
+  try {
     return await axiosInstance.get(`/${userId}`);
-  // } catch (error) {
-  //   return JSON.stringify({
-  //     error: error.message
-  //   });
-  // }
+  } catch (error) {
+    const { response } = error;
+
+    throw new Error(JSON.stringify({
+      error: response.data.error,
+      status: response.status,
+    }));
+  }
 }
 
 const addMessage = async (values) => {
-  // try {
+  try {
     return await axiosInstance.post('/', { ...values });
-  // } catch (error) {
-  //   return JSON.stringify({
-  //     error: error.message
-  //   });
-  // }
+  } catch (error) {
+    const { response } = error;
+
+    throw new Error(JSON.stringify({
+      error: response.data.error,
+      status: response.status,
+    }));
+  }
 }
 
 
 const deleteMessage = async (messageId) => {
-  // try {
-    return await axiosInstance.delete(`/${messageId}`);
-  // } catch (error) {
-  //   return JSON.stringify({
-  //     error: error.message
-  //   });
-  // }
+  try {
+    await axiosInstance.delete(`/${messageId}`);
+  } catch (error) {
+    const { response } = error;
+
+    throw new Error(JSON.stringify({
+      error: response.data.error,
+      status: response.status,
+    }));
+  }
 }
 
 
