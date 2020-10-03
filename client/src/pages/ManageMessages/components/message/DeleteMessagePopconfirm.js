@@ -10,10 +10,10 @@ const DeleteMessagePopconfirm = ({ messageId }) => {
   const handleConfirm = async () => {
     try {
       // Call the confirm function (deleting the message) and display appropriate message
-      contextValue.onConfirmAction(messageId);
+      await contextValue.onConfirmAction(messageId);
       SystemMessage.success('Message deleted');
     } catch (error) {
-      SystemMessage.error('Failed to delete the message');
+      SystemMessage.error('Failed to delete the message: ', error.message);
     }
   }
 

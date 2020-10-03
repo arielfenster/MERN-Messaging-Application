@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { createContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SearchBar from './SearchBar';
@@ -10,19 +10,20 @@ import { Button } from 'antd';
 export const MessagesModuleContext = createContext();
 
 const Dashboard = (props) => {
-  const [userIdQuery, setUserIdQuery] = useState('');
+  
   const {
     messages,
     getUserMessagesSubmitted,
-    deleteMessageSubmitted } = props;
+    deleteMessageSubmitted,
+  } = props;
     
   /**
    * Everytime the user types a user id, fire a GET request to the backend
    * to fetch all the messages relevant to that user id
    */
-  useEffect(() => {
-    getUserMessagesSubmitted(userIdQuery);
-  }, [userIdQuery]);
+  const handleChange = (queryId) => {
+    getUserMessagesSubmitted(queryId);
+  }
 
   const contextValue = {
     onConfirmAction: (messageId) => {deleteMessageSubmitted(messageId)},
@@ -31,7 +32,7 @@ const Dashboard = (props) => {
   return (
     <div>
       <div>
-        <SearchBar onChange={(queryId) => setUserIdQuery(queryId)}/>
+        <SearchBar onChange={handleChange}/>
         <Link to='/'>
           <Button type='link'> Back to start </Button>
         </Link>

@@ -23,6 +23,7 @@ const MessageForm = (props) => {
       setDisplayMessage(`Error sending the message (${error.message})`);
     } else {
       setDisplayMessage('Message sent successfully');
+      formRef.resetFields();
     }
   }, [error.message, messages.length]);
 
