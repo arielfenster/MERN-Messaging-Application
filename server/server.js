@@ -26,8 +26,8 @@ app.use('/messages', routers.messagesRouter);
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
-  const staticPath = path.normalize(path.join(__dirname, '../client/build'));
-  app.use(express.static('client/build'));
+  const staticPath = path.resolve(__dirname, '..', 'client','build');
+  app.use(express.static(staticPath));
 
   // Load the static 
   app.get('*', (req, res) => {
