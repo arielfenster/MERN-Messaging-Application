@@ -10,11 +10,12 @@ import { Button } from 'antd';
 export const MessagesModuleContext = createContext();
 
 const Dashboard = (props) => {
-  
+
   const {
     messages,
     getUserMessagesSubmitted,
     deleteMessageSubmitted,
+    clearMessages
   } = props;
     
   /**
@@ -26,16 +27,16 @@ const Dashboard = (props) => {
   }
 
   const contextValue = {
-    onConfirmAction: (messageId) => {deleteMessageSubmitted(messageId)},
+    onConfirmAction: (messageId) => { deleteMessageSubmitted(messageId) },
   };
 
   return (
     <div>
       <div>
-        <SearchBar onChange={handleChange}/>
-        <Link to='/'>
+        <Link onClick={() => clearMessages()} to='/'>
           <Button type='link'> Back to start </Button>
         </Link>
+        <SearchBar onChange={handleChange}/>
       </div>
       <MessagesModuleContext.Provider value={contextValue}>
         <MessagesList messages={messages} />

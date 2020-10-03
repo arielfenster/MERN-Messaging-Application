@@ -9,6 +9,9 @@ const MessageDetail = ({ label, value }) => (
 )
 
 const MessageItem = ({ message, type }) => {
+
+  const date = new Date(message.date).toLocaleString();
+
   return (
     <Card
       title={`Title: ${message.subject}`}
@@ -20,7 +23,7 @@ const MessageItem = ({ message, type }) => {
           :
           <MessageDetail label='From' value={message.sender} />
       }
-      <MessageDetail label='At' value={message.date} />
+      <MessageDetail label='At' value={date} />
       <MessageDetail label='Body' value={message.body} />
     </Card>
   );

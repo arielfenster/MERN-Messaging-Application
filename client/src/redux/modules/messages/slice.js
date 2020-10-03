@@ -45,6 +45,10 @@ const slice = createSlice({
       state.list = messages;
       return state;
     },
+    clearMessages: (state) => {
+      state.list = [];
+      return state;
+    },
   },
 });
 

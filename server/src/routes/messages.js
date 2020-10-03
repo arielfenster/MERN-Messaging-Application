@@ -46,7 +46,9 @@ router.get('/:userId', async (req, res) => {
     const messagesSent = [];
     const messagesReceived = [];
     userMessages.forEach(msg => {
-      msg.sender === userId ? messagesSent.push(msg) : messagesReceived.push(msg);
+      // For the special scenario that a user sent a message for himself - so we'll display it on both tabs
+      if (msg.sender === userId) { messagesSent.push(msg); }
+      if (msg.receiver === userId) { messagesReceived.push(msg); }
     });
   
     const messages = {

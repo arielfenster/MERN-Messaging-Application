@@ -6,7 +6,10 @@ const { TabPane } = Tabs;
 
 const MessagesList = ({ messages }) => {
   return (
-    <Tabs>
+    <Tabs
+      size="large"
+      centered
+    >
       <TabPane key='sent' tab='Sent'>
         {
           messages.sent && messages.sent.map(msg => (
