@@ -24,8 +24,8 @@ Users will be presented with the start page where they can choose to create a me
 * When posting a new message, enter the relevant fields and wait for the message to be sent. If an error occurs it will be shown next to the submit button.
 * When managing your messages, type in your sender id. Notice how each character typed displays an updated set of messages - each tap fires a GET request to the server to fetch that current id's messages. Choose to view your messages (separated by 'sent' and 'received' tabs) or choose to delete a message.
 
-### Bonus
-Implement register and login authentication logic for users. Once a user is logged in and makes a request to fetch messages from the server, he should receive only his messages and not other people's. The authentication 
+### Authentication
+One can implement register and login authentication logic for users. Once a user has logged in and makes a request to fetch messages from the server, he should receive only his messages and not other people's. The authentication can be created like so:
 
 Instructions:
 1. Create register and login components with individual forms. On submit, they should send requests to the server and if approved, go back to the start page. The user now posses an access token that can be kept in the redux store, session storage object, etc. With that token he can make requests regarding only his messages.
