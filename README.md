@@ -1,5 +1,5 @@
 # Fullstack Messaging App
-A responsive MERN Fullstack messaging application where users can send and receive messages (similar to emails) from each other, as well as display all their messages they have.
+A simple responsive MERN Fullstack messaging application where users can send and receive messages (similar to emails) from each other, as well as display all their messages they have.
 The project is implementing a REST API using Express.js that is connected to a remote Mongo Atlas database.
 
 The code is deployed to heroku. Check it out for yourself:
