@@ -3,9 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 const routers = require('./src/routes');
+require('dotenv').config();
 
 // Connect to DB
-const mongoURI = 'mongodb+srv://arielfenster:mnE9C4GzSLraVrXy@messaging-app.kkcbr.mongodb.net/messaging-app?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGO_URI;
 mongoose.connect(
   mongoURI,
   { useNewUrlParser: true, useUnifiedTopology: true },
